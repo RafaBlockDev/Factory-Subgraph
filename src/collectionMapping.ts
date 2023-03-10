@@ -22,7 +22,7 @@ export function handleCollectionCreated(event: CollectionDeployedEvent): void {
     collectionNFT.description = event.params.description;
     collectionNFT.owner = event.params.owner;
     collectionNFT.creator = collectionNFT.owner;
-    collectionNFT.tokenURI = event.params.tokenURI;
+    collectionNFT.tokenURI = event.params.initBaseURI;
     collectionNFT.price = event.params.price;
     collectionNFT.totalSupply = event.params.totalSupply;
     collectionNFT.totalSales = defaultSale;

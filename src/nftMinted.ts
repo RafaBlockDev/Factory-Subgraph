@@ -1,16 +1,15 @@
-import { Item, CollectionCreated as Collection } from "../generated/schema";
-import { NFTMinted, Transfer } from "../generated/templates/NFTTemplate/NFTTemplate";
-import { EVMNFT } from "../generated/templates";
+import { Item } from "../generated/schema";
+import { Transfer } from "../generated/templates/NFTTemplate/NFTTemplate";
 
-export function handleNFTCreated(event: NFTMinted): void {
+export function handleNFTCreated(event: Transfer): void {
     let nft = Item.load(event.address.toHexString());
 
     if(!nft) {
-        let nft = new Item(event.address.toHexString() + "-" + event.params.tokenId.toString());
-        nft.collection = event.address.toHexString()
-        nft.tokenId = event.params.tokenId;
-        nft.timestamp = event.block.timestamp;
-        nft.logIndex = event.logIndex;
+        nft = new Item(event.address.toHexString() + "-" + event.params.tokenId.toString());
+        nft.collection = event.address;
+        nft.from = event.params.from;
+        nft.to = event.params.to;
+        nft.amount = event.params.tokenId;
         nft.save()
     }
 }

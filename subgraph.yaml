@@ -7,12 +7,12 @@ dataSources:
     name: CollectionNFT
     network: mumbai
     source:
-      address: "0xBf2e21684BADa7D98514a4EB8aA1ae9761c6Ec83"
+      address: "0xeCA8912d0E217F59661CB5B24Db662C8B293c17b"
       abi: CollectionNFT
-      startBlock: 32944018
+      startBlock: 32950000
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - CollectionCreated
@@ -32,7 +32,7 @@ templates:
       abi: EVMNFT
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/nftMinted.ts
       entities:
@@ -41,6 +41,5 @@ templates:
         - name: EVMNFT
           file: ./abis/products/boxNFT.json
       eventHandlers:
-        - event: NFTMinted(uint256)
+        - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleNFTCreated
-    

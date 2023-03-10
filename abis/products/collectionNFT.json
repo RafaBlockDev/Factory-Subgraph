@@ -23,7 +23,7 @@
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "tokenURI",
+				"name": "initBaseURI",
 				"type": "string"
 			},
 			{
