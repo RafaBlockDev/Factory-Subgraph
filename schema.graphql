@@ -25,7 +25,7 @@ type CollectionCreated @entity {
 
 type Item @entity {
   id: ID!
-  collection: Bytes!
+  collection: String!
   tokenId: BigInt!
   timestamp: BigInt!
   logIndex: BigInt!

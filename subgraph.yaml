@@ -43,6 +43,4 @@ templates:
       eventHandlers:
         - event: NFTMinted(string,string,indexed address,string,uint256,uint256,uint256,uint256,uint256,bool)
           handler: handleNFTCreated
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
     
