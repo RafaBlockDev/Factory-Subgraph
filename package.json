@@ -1,0 +1,19 @@
+{
+  "name": "commerxe",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ blockchainsquad/commerxe",
+    "create-local": "graph create --node http://localhost:8020/ blockchainsquad/commerxe",
+    "remove-local": "graph remove --node http://localhost:8020/ blockchainsquad/commerxe",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blockchainsquad/commerxe"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.25.3",
+    "@graphprotocol/graph-ts": "0.25.0",
+    "as-base64": "^0.2.0",
+    "assemblyscript-regex": "^1.6.4",
+    "ipfs-http-client": "^60.0.0"
+  }
+}

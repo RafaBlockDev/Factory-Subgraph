@@ -1,0 +1,144 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  # Marketplace for single digital NFTs
+  - kind: ethereum
+    name: SingleDigitalNFT
+    network: mumbai
+    source:
+      address: "0x43b1545f322E39a9fc6AfAe78455e4012e0b8fc0"
+      abi: SingleDigitalNFT
+      startBlock: 32804630
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - MarketSingleNFT
+        - NFTCategories
+      abis:
+        - name: SingleDigitalNFT
+          file: ./abis/products/singleNFT.json
+      eventHandlers:
+        - event: MarketItemCreated(indexed uint256,string,string,string,address,uint256,uint256,uint256,uint256,uint8,bool)
+          handler: handleMarketItemCreated
+        - event: ItemSold(indexed address,indexed address,uint256,uint256)
+          handler: handleItemSold
+      file: ./src/singleNFTMapping.ts
+  # Services NFTs
+  - kind: ethereum
+    name: ServicesNFT
+    network: mumbai
+    source:
+      address: "0x292ea800387Ccf2CA681158c834E126F97e68EDd"
+      abi: ServicesNFT
+      startBlock: 32824733
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ServiceMintedNFT
+        - ServiceRent
+      abis:
+        - name: ServicesNFT
+          file: ./abis/products/servicesNFT.json
+      eventHandlers:
+        - event: ServiceMinted(indexed address,string,string,string,uint256,uint256,uint256,uint256,bool,uint8)
+          handler: handleServiceMinted
+        - event: ServiceRented(indexed address,indexed address,uint256,uint256)
+          handler: handleServiceRented
+      file: ./src/serviceMapping.ts
+  # Subscription NFTs
+  - kind: ethereum
+    name: SubscriptionNFT
+    network: mumbai
+    source:
+      address: "0xE8a8e45031B4f40605E4DB19aD091563926E2736"
+      abi: SubscriptionNFT
+      startBlock: 32823743
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SubscriptionMintedNFT
+        - SubscriptionPaidNFT
+      abis:
+        - name: SubscriptionNFT
+          file: ./abis/products/subscriptionNFT.json
+      eventHandlers:
+        - event: SubscriptionMinted(indexed address,string,string,string,uint256,uint256,uint256,uint256,bool,uint8)
+          handler: handleSubscriptionMinted
+        - event: SubscriptionPaid(indexed address,indexed address,uint256,uint256)
+          handler: handleSubscriptionPaid
+      file: ./src/subscriptionNFT.ts
+  # EXAMPLE OF COLLECION OF NFTS
+  - kind: ethereum
+    name: ExampleNFT
+    network: mumbai
+    source:
+      address: "0xF74e3341D35804C24D71047a2ba2aE0f75867c33"
+      abi: ExampleNFT
+      startBlock: 32829322
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - FilterNFT
+        - TxnNFT
+      abis:
+        - name: ExampleNFT
+          file: ./abis/products/boxNFT.json
+      eventHandlers:
+        - event: NFTMinted(string,string,indexed address,string,uint256,uint256,uint256,uint256,uint256,bool)
+          handler: handleNFTMinted
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransferNFT
+      file: ./src/nftMapping.ts
+  # Collection of NFTs
+  - kind: ethereum
+    name: CollectionNFT
+    network: mumbai
+    source:
+      address: "0xBf2e21684BADa7D98514a4EB8aA1ae9761c6Ec83"
+      abi: CollectionNFT
+      startBlock: 32829253
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - CollectionCreated
+      abis:
+        - name: CollectionNFT
+          file: ./abis/products/collectionNFT.json
+      eventHandlers:
+        - event: CollectionDeployed(string,string,address,string,uint256,uint256,uint256,address)
+          handler: handleCollectionCreated
+      file: ./src/collectionMapping.ts
+  # Template of Factory
+templates:
+  - kind: ethereum/contract
+    name: EVMNFT
+    network: mumbai
+    source:
+      abi: EVMNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/nftMinted.ts
+      entities:
+        - Item
+      abis:
+        - name: EVMNFT
+          file: ./abis/products/boxNFT.json
+      eventHandlers:
+        - event: NFTMinted(string,string,indexed address,string,uint256,uint256,uint256,uint256,uint256,bool)
+          handler: handleNFTCreated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+    
