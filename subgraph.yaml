@@ -41,6 +41,6 @@ templates:
         - name: EVMNFT
           file: ./abis/products/boxNFT.json
       eventHandlers:
-        - event: NFTMinted(string,string,indexed address,string,uint256,uint256,uint256,uint256,uint256,bool)
+        - event: NFTMinted(uint256)
           handler: handleNFTCreated
     

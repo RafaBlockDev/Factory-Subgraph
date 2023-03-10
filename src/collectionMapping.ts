@@ -8,14 +8,14 @@ export function handleCollectionCreated(event: CollectionDeployedEvent): void {
     //const tokenIpfsHash = ipfshash + token.tokenURI
     //token.ipfsURI = tokenIpfsHash
     //TokenMetadataTemplate.create(tokenIpfsHash)
-    let collectionNFT = CollectionCreated.load(event.transaction.hash.toHex() + event.logIndex.toString());
+    let collectionNFT = CollectionCreated.load(event.params.collection.toHexString());    
     let defaultValue = false;
     let defaultNumber = (0).toString();
     let defaultSale = new BigInt(2);
     let setValue = true;
 
     if(!collectionNFT) {
-        collectionNFT = new CollectionCreated(event.transaction.hash.toHex());
+        collectionNFT = new CollectionCreated(event.params.collection.toHexString());
     }
 
     collectionNFT.name = event.params.name;
