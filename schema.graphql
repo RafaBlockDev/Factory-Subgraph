@@ -28,5 +28,13 @@ type Item @entity {
   collection: Bytes!
   from: Bytes!
   to: Bytes!
-  amount: BigInt!
+  tokenId: BigInt!
+  nfts: CollectionCreated
+  #nfts: [CollectionCreated!]! @derivedFrom(field: "nftByCol")
+}
+
+type Mint @entity {
+  id: ID!
+  nft: Item!
+  timestamp: BigInt!
 }

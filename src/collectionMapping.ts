@@ -1,5 +1,6 @@
 import { BigInt, Entity } from "@graphprotocol/graph-ts";
 import { CollectionDeployed as CollectionDeployedEvent } from "../generated/CollectionNFT/CollectionNFT"
+import { Transfer } from "../generated/templates/EVMNFT/EVMNFT";
 import { EVMNFT as EVMNFTTemplate } from "../generated/templates";
 import { CollectionCreated, Item } from "../generated/schema";
 
@@ -29,6 +30,8 @@ export function handleCollectionCreated(event: CollectionDeployedEvent): void {
     collectionNFT.isActive = setValue;
     collectionNFT.subCategory = defaultNumber;
     collectionNFT.soldOut = defaultValue;
+
+    //collectionNFT.nft = event.address.toString();
 
     // Set values without know use case or context
     collectionNFT.comments = "";
