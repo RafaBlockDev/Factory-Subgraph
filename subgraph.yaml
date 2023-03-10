@@ -9,7 +9,7 @@ dataSources:
     source:
       address: "0xBf2e21684BADa7D98514a4EB8aA1ae9761c6Ec83"
       abi: CollectionNFT
-      startBlock: 32829253
+      startBlock: 32944018
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
