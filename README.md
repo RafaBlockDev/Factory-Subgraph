@@ -25,7 +25,7 @@ yarn global add @graphprotocol/graph-cli
 
 Then you have packages installed, please authenticate through CLI:
 ```
-graph auth --product hosted-service 157aa23a5ba644a8bbbed8dd094ba1a6
+graph auth --product hosted-service
 ```
 
 And finally you commit changes, fdeploy subgraph: 
