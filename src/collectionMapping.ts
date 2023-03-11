@@ -2,21 +2,21 @@ import { BigInt, Entity } from "@graphprotocol/graph-ts";
 import { CollectionDeployed as CollectionDeployedEvent } from "../generated/CollectionNFT/CollectionNFT"
 import { Transfer } from "../generated/templates/EVMNFT/EVMNFT";
 import { EVMNFT as EVMNFTTemplate } from "../generated/templates";
-import { CollectionCreated, Item } from "../generated/schema";
+import { Collection } from "../generated/schema";
 
 export function handleCollectionCreated(event: CollectionDeployedEvent): void {
     //marketPhysicalNFT.tokenURI = '/' + event.params.tokenId.toString() + '.json';
     //const tokenIpfsHash = ipfshash + token.tokenURI
     //token.ipfsURI = tokenIpfsHash
     //TokenMetadataTemplate.create(tokenIpfsHash)
-    let collectionNFT = CollectionCreated.load(event.params.collection.toHexString());    
+    let collectionNFT = Collection.load(event.params.collection.toHexString());    
     let defaultValue = false;
     let defaultNumber = (0).toString();
     let defaultSale = new BigInt(2);
     let setValue = true;
 
     if(!collectionNFT) {
-        collectionNFT = new CollectionCreated(event.params.collection.toHexString());
+        collectionNFT = new Collection(event.params.collection.toHexString());
     }
 
     collectionNFT.name = event.params.name;
@@ -49,6 +49,8 @@ export function handleCollectionCreated(event: CollectionDeployedEvent): void {
     collectionNFT.categoryId = "2";
     collectionNFT.category = "nft-collections";
     collectionNFT.address = event.params.collection;
+
+    //let nft = Item.load(event.address.toHexString());
 
     EVMNFTTemplate.create(event.params.collection)
 

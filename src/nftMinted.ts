@@ -2,18 +2,21 @@ import { Item, Mint } from "../generated/schema";
 import { Transfer } from "../generated/templates/NFTTemplate/NFTTemplate";
 
 export function handleNFTCreated(event: Transfer): void {
-    let nft = Item.load(event.address.toHexString() + "_" + event.params.tokenId.toString());
-
+    const entity = event.address.toHexString();
+    let nft = Item.load(entity + "_" + event.params.tokenId.toString());
+    
     if(!nft) {
         nft = new Item(event.address.toHexString() + "_" + event.params.tokenId.toString());
-        nft.collection = event.address;
+        nft.address = event.address;
         nft.from = event.params.from;
         nft.tokenId = event.params.tokenId;
-        
-        let mint = new Mint(event.address.toHexString() + "_" + event.params.tokenId.toString());
 
+        nft.collection = event.address.toHexString();
+
+        let mint = new Mint(event.address.toHexString() + "_" + event.params.tokenId.toString());
+    
         if(!mint) {
-            mint = new Mint(event.address.toHexString());
+          mint = new Mint(event.address.toHexString() + "_" + event.params.tokenId.toString());
         }
 
         mint.nft = event.address.toHexString() + "_" + event.params.tokenId.toString()

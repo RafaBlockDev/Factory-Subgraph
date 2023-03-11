@@ -1,4 +1,4 @@
-type CollectionCreated @entity {
+type Collection @entity {
   id: ID!
   categoryId: String!
   category: String!
@@ -21,16 +21,16 @@ type CollectionCreated @entity {
   block: BigInt!
   timestamp: BigInt!
   logIndex: BigInt!
+  nft: [Item!]! @derivedFrom(field: "collection")
 }
 
 type Item @entity {
   id: ID!
-  collection: Bytes!
+  address: Bytes!
   from: Bytes!
   to: Bytes!
   tokenId: BigInt!
-  nfts: CollectionCreated
-  #nfts: [CollectionCreated!]! @derivedFrom(field: "nftByCol")
+  collection: Collection!
 }
 
 type Mint @entity {
