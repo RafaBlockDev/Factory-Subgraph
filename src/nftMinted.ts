@@ -1,49 +1,15 @@
-import { Item, Mint } from "../generated/schema";
-import { Transfer } from "../generated/templates/NFTTemplate/NFTTemplate";
+import { Item } from "../generated/schema";
+import { NFTMinted } from "../generated/templates/NFTTemplate/NFTTemplate";
 
-export function handleNFTCreated(event: Transfer): void {
-    const entity = event.address.toHexString();
-    let nft = Item.load(entity + "_" + event.params.tokenId.toString());
-    
+export function handleNFTCreated(event: NFTMinted): void {
+    let nft = Item.load(event.address.toHexString());
+
     if(!nft) {
-        nft = new Item(event.address.toHexString() + "_" + event.params.tokenId.toString());
-        nft.address = event.address;
-        nft.from = event.params.from;
+        let nft = new Item(event.address.toHexString() + "-" + event.params.tokenId.toHexString());
+        nft.collection = event.address.toHexString()
         nft.tokenId = event.params.tokenId;
-
-        nft.collection = event.address.toHexString();
-
-        let mint = new Mint(event.address.toHexString() + "_" + event.params.tokenId.toString());
-    
-        if(!mint) {
-          mint = new Mint(event.address.toHexString() + "_" + event.params.tokenId.toString());
-        }
-
-        mint.nft = event.address.toHexString() + "_" + event.params.tokenId.toString()
-        mint.timestamp = event.block.timestamp;
-        mint.save();
+        nft.timestamp = event.block.timestamp;
+        nft.logIndex = event.logIndex;
+        nft.save()
     }
-
-    nft.to = event.params.to;
-    nft.save()
 }
-
-/**
- * 
- * type Token @entity {
-  id: ID!
-  tokenID: BigInt!
-  contentURI: String
-  tokenIPFSPath: String
-  name: String!
-  createdAtTimestamp: BigInt!
-  creator: User!
-  owner: User!
-}
-
-type User @entity {
-  id: ID!
-  tokens: [Token!]! @derivedFrom(field: "owner")
-  created: [Token!]! @derivedFrom(field: "creator")
-}
- */
