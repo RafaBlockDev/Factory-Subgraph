@@ -2,20 +2,62 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
+  # NFTs
+  - kind: ethereum
+    name: NFT
+    network: mumbai
+    source:
+      address: "0x2248978c998AE537d1d2f3326d9D9d2167FF5949"
+      abi: NFT
+      startBlock: 33239800
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: NFT
+          file: ./abis/products/nft.json
+      eventHandlers:
+        - event: NFTMinted(indexed address,string,string,string,uint8)
+          handler: handleNFTMinted
+      file: ./src/nftMapping.ts
+  # Marketplace of NFTs
+  - kind: ethereum
+    name: Market
+    network: mumbai
+    source:
+      address: "0x6F7b15b2f0f298493d12244Fd0BCE27649B428D7"
+      abi: Market
+      startBlock: 33239811
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTMarket
+      abis:
+        - name: Market
+          file: ./abis/products/market.json
+      eventHandlers:
+        - event: Item(address,address,address,string,string,string,uint256,uint256,uint256,uint8)
+          handler: handleNFTMinted
+      file: ./src/marketMapping.ts  
   # Collection of NFTs
   - kind: ethereum
     name: CollectionNFT
     network: mumbai
     source:
-      address: "0xeCA8912d0E217F59661CB5B24Db662C8B293c17b"
+      address: "0xBf2e21684BADa7D98514a4EB8aA1ae9761c6Ec83"
       abi: CollectionNFT
-      startBlock: 32950000
+      startBlock: 32829253
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - Collection
+        - CollectionCreated
       abis:
         - name: CollectionNFT
           file: ./abis/products/collectionNFT.json
@@ -32,7 +74,7 @@ templates:
       abi: EVMNFT
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/nftMinted.ts
       entities:
@@ -41,5 +83,6 @@ templates:
         - name: EVMNFT
           file: ./abis/products/boxNFT.json
       eventHandlers:
-        - event: Transfer(indexed address,indexed address,indexed uint256)
+        - event: NFTMinted(string,string,indexed address,string,uint256,uint256,uint256,uint256,uint256,bool)
           handler: handleNFTCreated
+    

@@ -1,4 +1,4 @@
-type Collection @entity {
+type CollectionCreated @entity {
   id: ID!
   categoryId: String!
   category: String!
@@ -21,20 +21,35 @@ type Collection @entity {
   block: BigInt!
   timestamp: BigInt!
   logIndex: BigInt!
-  nft: [Item!]! @derivedFrom(field: "collection")
 }
 
 type Item @entity {
   id: ID!
-  address: Bytes!
-  from: Bytes!
-  to: Bytes!
+  collection: String!
   tokenId: BigInt!
-  collection: Collection!
+  timestamp: BigInt!
+  logIndex: BigInt!
 }
 
-type Mint @entity {
+type NFT @entity {
   id: ID!
-  nft: Item!
-  timestamp: BigInt!
+  creator: Bytes!
+  name: String!
+  description: String!
+  tokenURI: String!
+  category: String!
+}
+
+type NFTMarket @entity {
+  id: ID!
+  nftAddress: Bytes!
+  owner: Bytes!
+  creator: Bytes!
+  name: String!
+  description: String!
+  tokenURI: String!
+  tokenId: BigInt!
+  price: BigInt!
+  royalty: BigInt!
+  category: String!
 }
