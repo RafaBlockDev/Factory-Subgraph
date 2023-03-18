@@ -42,7 +42,7 @@ dataSources:
           file: ./abis/products/market.json
       eventHandlers:
         - event: Item(address,address,address,string,string,string,uint256,uint256,uint256,uint8)
-          handler: handleNFTMinted
+          handler: handleItemCreated
       file: ./src/marketMapping.ts  
   # Collection of NFTs
   - kind: ethereum

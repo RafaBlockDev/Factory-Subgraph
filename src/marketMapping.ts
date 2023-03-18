@@ -1,7 +1,7 @@
 import { NFTMarket } from "../generated/schema";
 import { Item } from "../generated/Market/Market";
 
-export function handleNFTCreated(event: Item): void {
+export function handleItemCreated(event: Item): void {
     let nft = NFTMarket.load(event.address.toHexString());
 
     if(!nft) {
