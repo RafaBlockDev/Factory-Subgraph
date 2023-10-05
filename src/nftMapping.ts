@@ -1,6 +1,7 @@
 import { NFT } from "../generated/schema";
 import { NFTMinted } from "../generated/NFT/NFT";
 
+
 export function handleNFTMinted(event: NFTMinted): void {
     let nft = NFT.load(event.address.toHexString());
 
