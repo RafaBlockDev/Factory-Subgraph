@@ -34,4 +34,4 @@ graph deploy --product hosted-service rafablockdev/cxe-subgraph
 ```
 
 **Endpoint**
-The endpoint [commerxe Subgraph](https://api.thegraph.com/subgraphs/name/rafablockdev/cxe-subgraph) has the schemas to index all smart contract commerxe core information.
+The endpoint [commerxe Subgraph](https://api.thegraph.com/subgraphs/name/rafablockdev/cxe-subgraph) has the schemas to index all smart contract commerxe core information
